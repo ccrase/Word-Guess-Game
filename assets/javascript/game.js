@@ -4,11 +4,12 @@ var words = [ //create array
     "tacos", 
     "casserole", 
     "fajitas",
-    "kebab",
     "ramen",
     "churro",
-    "donuts",
     "curry",
+    "lasagna",
+    "donuts",
+    "hotdog",
     "cheeseburger",
     "sashimi"
     ]; 
@@ -26,8 +27,8 @@ function resetGame(){
     document.getElementById("press-enter").style.cssText = "display: block;";
     document.addEventListener('keydown', function (e){
         if(e.keyCode === 13){
-            sendToStart();
             gameStarted = true;
+            sendToStart();
         }
     });
 };
@@ -48,6 +49,7 @@ function startGame(){
 function assignWord(array){
     randomIndex = Math.floor(Math.random() * ((array.length -1) - 0 + 1)) + 0;
     currentWord = array[randomIndex];
+    console.log(currentWord);
 };
 
 function displayWord(){ //saves underscores to underscore array and formats the look of word-placeholderText
@@ -87,17 +89,57 @@ function evaluateGuesses(letter){
     if(!currentWord.includes(letter)){
         wrongGuesses.push(letter);
         remainingGuess--;
-        console.log(wrongGuesses);
         updateDom();
         evaluateLoss();
     }
     else{
         if(currentWord === underscores.join('')){
             wins++;
-            console.log(wins);
+            winBackground();
             updateDom();
-            endGame();
         }
+    }
+};
+
+function winBackground(){
+    if(currentWord === "spaghetti"){
+        alert("background needs to change");
+    }
+    if(currentWord === "poutine"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "tacos"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "casserole"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "fajitas"){
+        alert("background needs to change");       
+    }
+    if(currentWord === "ramen"){
+        alert("background needs to change");       
+    }
+    if(currentWord === "churro"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "curry"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "lasagna"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "donuts"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "hotdog"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "cheeseburger"){
+        alert("background needs to change");        
+    }
+    if(currentWord === "sashimi"){
+        alert("background needs to change");        
     }
 };
 
