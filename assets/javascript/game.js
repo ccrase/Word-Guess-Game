@@ -103,44 +103,45 @@ function evaluateGuesses(letter){
 
 function winBackground(){
     if(currentWord === "spaghetti"){
-        alert("background needs to change");
+        document.getElementById("background").style.background = "url(assets/images/spaghetti.jpg)";
     }
     if(currentWord === "poutine"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/poutine.jpg)";        
     }
     if(currentWord === "tacos"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/tacos.jpg)";        
     }
     if(currentWord === "casserole"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/casserole.jpg)";        
     }
     if(currentWord === "fajitas"){
-        alert("background needs to change");       
+        document.getElementById("background").style.background = "url(assets/images/fajitas.jpg)";       
     }
     if(currentWord === "ramen"){
-        alert("background needs to change");       
+        document.getElementById("background").style.background = "url(assets/images/ramen.jpg)";       
     }
     if(currentWord === "churro"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/churro.jpg)";        
     }
     if(currentWord === "curry"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/curry.jpg)";        
     }
     if(currentWord === "lasagna"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/lasagna.jpg)";        
     }
     if(currentWord === "donuts"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/donuts.jpg)";        
     }
     if(currentWord === "hotdog"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/hotdog.jpg)";        
     }
     if(currentWord === "cheeseburger"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/cheeseburger.jpg)";        
     }
     if(currentWord === "sashimi"){
-        alert("background needs to change");        
+        document.getElementById("background").style.background = "url(assets/images/sashimi.jpg)";        
     }
+    endGame();
 };
 
 function updateDom(){
