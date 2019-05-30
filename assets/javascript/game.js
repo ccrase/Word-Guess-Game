@@ -1,52 +1,133 @@
-//press any key to start
-//create an array of words that you want the user to guess 
-guessList = ["grimes", "the preatures", "parcels", "thundercat", "tennis", "jungle", "toro y moi", "tame impala"];
+var words = [ //create array
+    "spaghetti", 
+    "poutine", 
+    "tacos", 
+    "casserole", 
+    "fajitas",
+    "kebab",
+    "ramen",
+    "churro",
+    "donuts",
+    "curry",
+    "cheeseburger",
+    "sashimi"
+    ]; 
+//define global variables    
+var currentWord;
+var randomIndex;
+var wins = 0;
+var remainingGuess = 10;
+var underscores = [];
+var wrongGuesses = [];
+var gameStarted = false;
 
-//create a function to randomly select a word from the array store into a variable(array)
-function getRandom(array){
-    randomWord = array[Math.floor(Math.random() * array.length)];
-    return randomWord;
+resetGame();
+function resetGame(){
+    document.getElementById("press-enter").style.cssText = "display: block;";
+    document.addEventListener('keydown', function (e){
+        if(e.keyCode === 13){
+            sendToStart();
+            gameStarted = true;
+        }
+    });
 };
 
-getRandom(guessList);
-console.log(randomWord);
-
-//empty array to hold letterholders
-var answerArray = [];
-for(var i = 0; i < randomWord.length; i++){
-    if(randomWord[i] === " "){
-        answerArray[i] = " ";
+function sendToStart(){
+    if(gameStarted){
+        startGame();
     }
-    else{
-        answerArray[i] = "_";
+};
+
+function startGame(){
+    document.getElementById("press-enter").style.cssText = "display: none;";
+    assignWord(words);
+    displayWord();
+    setEventListener();
+};
+
+function assignWord(array){
+    randomIndex = Math.floor(Math.random() * ((array.length -1) - 0 + 1)) + 0;
+    currentWord = array[randomIndex];
+};
+
+function displayWord(){ //saves underscores to underscore array and formats the look of word-placeholderText
+    for(var i =0; i <currentWord.length; i++){
+        underscores.push("_");
+        document.getElementById("word-placeholder").innerHTML = underscores.join(' ');
     }
 };
-console.log(answerArray)
-//print letterholders to the div #values
-for(var i = 0; i < randomWord.length; i++){
-    var letterSpan = document.createElement('span');
-    var textData = document.createTextNode(randomWord[i]);
-    letterSpan.appendChild(textData);
-    console.log()
-    //document.getElementById("#values").appendChild(para);
-};
 
-
-
-//use .onkeyup to store the users letter choice
-document.onkeyup = function(e){
-    //assign onkeyup selection to variable letter
-    var letter = e.key.toLowerCase();
-
-    for(var i =0; i < randomWord.length; i++){
-        if(letter === randomWord.charAt(i)){
-            answerArray[i] = letter;
-            console.log(letter);
+function setEventListener(){
+    document.onkeyup = function(e){
+        if(e.keyCode >= 65 && e.keyCode <=90){
+            evaluateDuplicates(e.key);
+            evaluateGuesses(e.key);
+        }
+        else{
+            alert("You may only choose letters A-Z")
         }
     }
 };
-//check to see if the users letter guess matches any of the letters in the word
-//if the letter matches, print it into the "_" slot 
-//if the letter does not match, send to an array of wrong guesses. 
-//if the guessed letter has already been guessed, don't do anything
-//the user has 15 guesses to figure out the word. When they are out of guesses, and haven't finished the word, computer writes "you Lost"
+
+function evaluateDuplicates(letter) {
+    var positions = [];
+    // Loop through word finding all instances of guessed letter, store the indicies in an array.
+    for (var i = 0; i <currentWord.length; i++) {
+        if(currentWord[i] === letter) {
+            positions.push(i);
+        }
+    }
+    for(var i = 0; i < positions.length; i++) {
+            underscores[positions[i]] = letter;
+        }
+    document.getElementById("word-placeholder").innerHTML = underscores.join(' ');
+};
+
+function evaluateGuesses(letter){
+    if(!currentWord.includes(letter)){
+        wrongGuesses.push(letter);
+        remainingGuess--;
+        console.log(wrongGuesses);
+        updateDom();
+        evaluateLoss();
+    }
+    else{
+        if(currentWord === underscores.join('')){
+            wins++;
+            console.log(wins);
+            updateDom();
+            endGame();
+        }
+    }
+};
+
+function updateDom(){
+    document.getElementById('win-count').innerHTML = wins;
+    document.getElementById('wrong-guesses').innerHTML = wrongGuesses.join("   ");
+    document.getElementById('remaining-count').innerHTML = remainingGuess;
+};
+
+function evaluateLoss(){
+    if(remainingGuess > 0){
+        updateDom();
+    }
+    else{
+        alert("You Lost")
+        endGame();
+    }
+};
+
+function endGame(){
+    //reset variable
+    gameStarted = false;
+    currentWord = "";
+    randomIndex = "";
+    remainingGuess = 10;
+    underscores = [];
+    wrongGuesses = [];
+    //reset DOM
+    document.getElementById("word-placeholder").innerHTML = "";
+    document.getElementById('wrong-guesses').innerHTML = "";
+    document.getElementById('remaining-count').innerHTML = 10;
+    document.getElementById("press-enter").style.cssText = "display: block;";
+};
